@@ -1,0 +1,167 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaia Dolls - Personaliza tu doll</title>
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./estilos.css">
+  <script defer src="./script.js"></script>
+</head>
+<body class="form-page">
+
+  <!-- HEADER -->
+  <header class="site-header header-solid" id="siteHeader" data-force-solid="1">
+    <div class="header-container">
+      <a class="logo" href="index.php" aria-label="Gaia Dolls">
+        <img src="img/logo-gaia-dolls.png" alt="Gaia Dolls" />
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="hamburger" id="hamburger" aria-controls="main-menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="menu" id="main-menu">
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="productos.php">Productos</a></li>
+          <li><a href="sobrenosotros.php">Sobre nosotras</a></li>
+          <li><a href="personaliza.php" class="active" aria-current="page">Personalizar tu doll</a></li>
+          <?php if(isset($_SESSION['clientes'])) { ?>
+            <a href="componentes/salir.php">Cerrar sesión</a>
+          <?php } else { ?>
+            <a class="login" href="ingreso.php">Inicia sesión o registrate</a>
+          <?php } ?>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Personaliza tu doll -->
+    <section class="form-personaliza">
+      <div class="form-container">
+        <header class="form-head">
+          <h1>Personaliza tu doll</h1>
+          <p>Completá el siguiente formulario y en breve te responderemos</p>
+        </header>
+        
+        <div class="form-card">
+          <form id="personalizaForm" action="componentes/cargatudoll.php" method="POST">
+            <!-- fila 1 (desktop 3 columnas) -->
+            <div class="grid-3">
+              <div class="cell">
+                <label for="nombre">Nombre<span class="req">*</span></label>
+                <input class="field" type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" maxlength="30" required>
+              </div>
+
+              <div class="cell">
+                <label for="email">Email<span class="req">*</span></label>
+                <input class="field" type="email" id="email" name="email" placeholder="Ingresa tu email" maxlength="150" required>
+              </div>
+
+              <div class="cell">
+                <label for="telefono">Teléfono<span class="req">*</span></label>
+                <input class="field" type="tel" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" maxlength="30" required>
+              </div>
+
+              <!-- fila 2 -->
+              <div class="cell span-2">
+                <label for="nombrepersonaje">Nombre del personaje<span class="req">*</span></label>
+                <input class="field" type="text" id="nombrepersonaje" name="nombrepersonaje" placeholder="Ej: Batman, Messi, Duki." maxlength="30" required>
+              </div>
+
+              <div class="cell">
+                <label for="tamanopersonaje">Tamaño del doll<span class="req">*</span></label>
+                <div class="select-wrap">
+                  <select id="tamanopersonaje" name="tamanopersonaje" required>
+                    <option value="" selected disabled>Elegí un tamaño</option>
+                    <option value="24">20/24 CM</option>
+                    <option value="20">18/20 CM</option>
+                    <option value="18">15/18 CM</option>
+                    <option value="15">15 CM</option>
+                    <option value="10">9/10 CM</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- fila 3 -->
+              <div class="cell span-3">
+                <label for="infoextrapersonaje">Información extra sobre tu doll<span class="opcional">(opcional)</span></label>
+                <textarea id="infoextrapersonaje" name="infoextrapersonaje" placeholder="Contanos colores, pose, accesorios, referencias, links, etc."></textarea>
+              </div>
+            </div>
+
+            <div class="actions">
+              <input type="submit" class="btn" value="Solicitar presupuesto">
+              <div id="formMsg" class="form-msg" aria-live="polite"></div>
+            </div>
+          </form>
+          <?php
+          if (isset($_GET["ok_enviado"])) { ?>
+            <p>Consulta enviada con exito!</p>
+          <?php 
+          }
+          ?>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================== FOOTER ================== -->
+  <section class="site-footer" id="footer">
+    <div class="footer-container">
+
+      <!-- fila superior -->
+      <div class="footer-top">
+        <a class="footer-logo" href="./index.php" aria-label="Gaia Dolls">
+          <img src="img/logo-footer.png" alt="gaiadolls – muñecos de colección" />
+        </a>
+  
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="./index.php">Inicio</a>
+          <a href="./productos.php">Productos</a>
+          <a href="./sobrenosotros.php">Sobre nosotros</a>
+          <a href="./personaliza.php">Personalizar tu doll</a>
+        </nav>
+  
+        <div class="footer-social">
+          <span class="footer-social-label">Seguinos en</span>
+          <div class="redes">
+            <a class="social-ico" href="https://instagram.com" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a class="social-ico" href="https://tiktok.com" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <hr class="footer-divider"/>
+  
+      <!-- fila inferior -->
+      <div class="footer-bottom">
+        <div class="footer-contact">
+          <a href="mailto:contact@gaiadolls.com" class="footer-mail">
+            <i class="fa-regular fa-envelope"></i>
+            contact@gaiadolls.com
+          </a>
+          <a href="https://wa.me/5491133948693" class="footer-phone">
+            <i class="fa-solid fa-phone"></i>
+            +54 9 11 3394-8693
+          </a>
+        </div>
+  
+        <p class="footer-copy">
+          © 2024 Gaia Dolls. Todos los derechos de copyright reservados.
+        </p>
+      </div>
+  
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaia Dolls - Iniciar sesion</title>
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./estilos.css">
+  <script defer src="./script.js"></script>
+</head>
+<body class="auth-page">
+
+  <!-- HEADER -->
+  <header class="site-header header-solid" id="siteHeader" data-force-solid="1">
+    <div class="header-container">
+      <a class="logo" href="index.php" aria-label="Gaia Dolls">
+        <img src="img/logo-gaia-dolls.png" alt="Gaia Dolls" />
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="hamburger" id="hamburger" aria-controls="main-menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="menu" id="main-menu">
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="productos.php">Productos</a></li>
+          <li><a href="sobrenosotros.php">Sobre nosotras</a></li>
+          <li><a href="personaliza.php">Personalizar tu doll</a></li>
+          <?php if(isset($_SESSION['clientes'])) { ?>
+            <a href="componentes/salir.php">Cerrar sesión</a>
+          <?php } else { ?>
+            <a class="login" href="ingreso.php">Inicia sesión o registrate</a>
+          <?php } ?>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="form-auth">
+      <div class="form-container">
+        <header class="form-head">
+          <h1>Iniciar sesión</h1>
+          <p>Accedé con tu correo y contraseña para continuar.</p>
+        </header>
+
+        <div class="form-card">
+          <form id="loginForm" action="componentes/ingresoclientes.php" method="POST" novalidate>
+            <div class="grid-1">
+              <div class="cell">
+                <label for="login_email">Email <span class="req">*</span></label>
+                <input class="field" type="email" id="login_email" name="email"
+                placeholder="Ingresa tu correo electronico" maxlength="150" required>
+              </div>
+              <div class="cell">
+                <label for="login_pass">Contraseña <span class="req">*</span></label>
+                <div class="field-wrap has-toogle">
+                  <input class="field" type="password" id="login_pass" name="contrasena"
+                      placeholder="Ingresa tu contraseña" minlength="8" required aria-describedby="passHelp">
+                  <button type="button" class="pw-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
+                    <i class="fa-solid fa-eye-slash"></i>
+                  </button>
+                </div>
+                <p id="passHelp" class="help-text">
+                  Usa 8 o más caracteres con una combinación de letras, números y símbolos para mayor seguridad.
+                </p>
+              </div>
+            </div>
+
+            <div class="actions">
+              <input type="submit" class="btn" value="Iniciar sesión">
+              <div id="forMsg" class="form-msg" aria-live="polite"></div>
+              <p class="auth-alt">¿Aun no tenés una cuenta? <a href="registro.php">Crea tu cuenta aqui</a></p>
+            </div>
+          </form>
+          <?php if(isset($_GET['usuario_inexistente'])) { ?>
+            <p>El usuario no está registrado</p>
+          <?php } ?>
+          <?php if(isset($_GET['error_contrasena'])) { ?>
+            <p>La contraseña que ingresaste no es correcta</p>
+          <?php } ?>
+          <?php if(isset($_GET['ok_ingreso'])) { ?>
+            <p>Ingreso exitoso, ahora podrás visualizar los diferentes dolls de nuestro stock</p>
+          <?php } ?>
+          <?php if(isset($_GET['ok_registro'])) { ?>
+            <p>Cuenta creada, puedes iniciar sesion</p>
+          <?php } ?>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================== FOOTER ================== -->
+  <section class="site-footer" id="footer">
+    <div class="footer-container">
+
+      <!-- fila superior -->
+      <div class="footer-top">
+        <a class="footer-logo" href="./index.php" aria-label="Gaia Dolls">
+          <img src="img/logo-footer.png" alt="gaiadolls – muñecos de colección" />
+        </a>
+  
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="./index.php">Inicio</a>
+          <a href="./productos.php">Productos</a>
+          <a href="./sobrenosotros.php">Sobre nosotros</a>
+          <a href="./personaliza.php">Personalizar tu doll</a>
+        </nav>
+  
+        <div class="footer-social">
+          <span class="footer-social-label">Seguinos en</span>
+          <div class="redes">
+            <a class="social-ico" href="https://instagram.com" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a class="social-ico" href="https://tiktok.com" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <hr class="footer-divider"/>
+  
+      <!-- fila inferior -->
+      <div class="footer-bottom">
+        <div class="footer-contact">
+          <a href="mailto:contact@gaiadolls.com" class="footer-mail">
+            <i class="fa-regular fa-envelope"></i>
+            contact@gaiadolls.com
+          </a>
+          <a href="https://wa.me/5491133948693" class="footer-phone">
+            <i class="fa-solid fa-phone"></i>
+            +54 9 11 3394-8693
+          </a>
+        </div>
+  
+        <p class="footer-copy">
+          © 2024 Gaia Dolls. Todos los derechos de copyright reservados.
+        </p>
+      </div>
+  
+    </div>
+  </section>
+</body>
+</html>

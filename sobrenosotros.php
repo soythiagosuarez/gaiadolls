@@ -1,0 +1,180 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaia Dolls — Sobre nosotros</title>
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./estilos.css">
+  <script defer src="./script.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header header-solid" id="siteHeader" data-force-solid="1">
+    <div class="header-container">
+      <a class="logo" href="index.php" aria-label="Gaia Dolls">
+        <img src="img/logo-gaia-dolls.png" alt="Gaia Dolls" />
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="hamburger" id="hamburger" aria-controls="main-menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="menu" id="main-menu">
+          <li><a href="index.php" aria-current="page">Inicio</a></li>
+          <li><a href="productos.php">Productos</a></li>
+          <li><a href="sobrenosotros.php" class="active" aria-current="page">Sobre nosotras</a></li>
+          <li><a href="personaliza.php">Personalizar tu doll</a></li>
+          <?php if(isset($_SESSION['clientes'])) { ?>
+            <a href="componentes/salir.php">Cerrar sesión</a>
+          <?php } else { ?>
+            <a class="login" href="ingreso.php">Inicia sesión o registrate</a>
+          <?php } ?>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner principal -->
+    <section class="about-hero">
+      <div class="section-container-about">
+        <!-- Bloque 1: título -->
+        <div class="about-hero__box about-hero__box--title">
+          <h1 class="about-hero__h1">
+            <span class="about-hero__pre">Tejemos</span>
+            <span class="about-hero__main">Historias</span>
+          </h1>
+        </div>
+    
+        <!-- Bloque 2: subtítulo + descripción -->
+        <div class="about-hero__box about-hero__box--copy">
+          <h2 class="about-hero__sub">
+            Diseño de <span class="about-hero__accent">muñecos</span><br>
+            <span class="about-hero__accent">amigurumi únicos</span>
+          </h2>
+          <p class="about-hero__desc">
+            Mi nombre es Silvina (Gaia). Este pequeño espacio es mi alter ego. Soy
+            artesana y crochetera creativa desde hace 10 años, alma inquieta y autodidacta
+            probé de todo y por diversas situaciones de la vida hoy me dedico de lleno a esto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resultados -->
+    <section class="about-metrics" id="about-metrics">
+      <div class="about-wrap">
+        <h2 class="sec-title">Nuestros números</h2>
+        <p class="sec-sub">Un vistazo a lo construido junto a la comunidad</p>
+
+        <ul class="metrics-grid">
+          <li class="metric">
+            <div class="metric-num" data-target="850">0</div>
+            <div class="metric-label">dolls entregados</div>
+          </li>
+          <li class="metric">
+            <div class="metric-num" data-target="5">0</div>
+            <div class="metric-label">tamaños disponibles</div>
+          </li>
+          <li class="metric">
+            <div class="metric-num" data-target="98">0</div>
+            <div class="metric-label">% de satisfacción</div>
+          </li>
+          <li class="metric">
+            <div class="metric-num" data-target="12">0</div>
+            <div class="metric-label">provincias alcanzadas</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Equipo -->
+    <section class="about-team" id="about-team">
+      <div class="about-wrap">
+        <h2 class="sec-title">Nuestro equipo</h2>
+        <p class="sec-sub">Conocé a las creadoras de esta aventura</p>
+
+        <div class="team-stage">
+          <!-- Card 1 -->
+          <article class="member m1">
+            <img src="img/duena.png" alt="Silvina — Fundadora y artesana">
+            <div class="overlay">
+              <h3>Silvina</h3>
+              <p>Fundadora · Artesana</p>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="member m2">
+            <img src="img/communitymanager.jpeg" alt="Sofi — Coequiper y Community">
+            <div class="overlay">
+              <h3>Thiago</h3>
+              <p>Co-equiper · Comunicador digital</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================== FOOTER ================== -->
+  <section class="site-footer" id="footer">
+    <div class="footer-container">
+
+      <!-- fila superior -->
+      <div class="footer-top">
+        <a class="footer-logo" href="./index.php" aria-label="Gaia Dolls">
+          <img src="img/logo-footer.png" alt="gaiadolls – muñecos de colección" />
+        </a>
+  
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="./index.php">Inicio</a>
+          <a href="./productos.php">Productos</a>
+          <a href="./sobrenosotros.php">Sobre nosotros</a>
+          <a href="./personaliza.php">Personalizar tu doll</a>
+        </nav>
+  
+        <div class="footer-social">
+          <span class="footer-social-label">Seguinos en</span>
+          <div class="redes">
+            <a class="social-ico" href="https://instagram.com" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a class="social-ico" href="https://tiktok.com" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <hr class="footer-divider"/>
+  
+      <!-- fila inferior -->
+      <div class="footer-bottom">
+        <div class="footer-contact">
+          <a href="mailto:contact@gaiadolls.com" class="footer-mail">
+            <i class="fa-regular fa-envelope"></i>
+            contact@gaiadolls.com
+          </a>
+          <a href="https://wa.me/5491133948693" class="footer-phone">
+            <i class="fa-solid fa-phone"></i>
+            +54 9 11 3394-8693
+          </a>
+        </div>
+  
+        <p class="footer-copy">
+          © 2024 Gaia Dolls. Todos los derechos de copyright reservados.
+        </p>
+      </div>
+  
+    </div>
+  </section>
+
+</body>
+</html>

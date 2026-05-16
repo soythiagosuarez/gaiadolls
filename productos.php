@@ -1,0 +1,216 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaia Dolls - Personaliza tu doll</title>
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./estilos.css">
+  <script defer src="./script.js"></script>
+  <style>
+    /* Estilo para botón activo */
+    .opcion-categoria-productos.activo {
+      background-color: #ffd5c4;
+      border: 1px solid #f2a585;
+    }
+    
+    /* Mensaje cuando no hay productos */
+    .no-productos {
+      text-align: center;
+      padding: 3rem 1rem;
+      grid-column: 1 / -1;
+    }
+    
+    .no-productos h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    
+    .no-productos p {
+      font-size: 1.1rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body class="form-page">
+
+  <!-- HEADER -->
+  <header class="site-header header-solid" id="siteHeader" data-force-solid="1">
+    <div class="header-container">
+      <a class="logo" href="index.php" aria-label="Gaia Dolls">
+        <img src="img/logo-gaia-dolls.png" alt="Gaia Dolls" />
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="hamburger" id="hamburger" aria-controls="main-menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="menu" id="main-menu">
+          <li><a href="index.php" aria-current="page">Inicio</a></li>
+          <li><a href="productos.php" class="active" aria-current="page">Productos</a></li>
+          <li><a href="sobrenosotros.php">Sobre nosotras</a></li>
+          <li><a href="personaliza.php">Personalizar tu doll</a></li>
+          <?php if(isset($_SESSION['clientes'])) { ?>
+            <a href="componentes/salir.php">Cerrar sesión</a>
+          <?php } else { ?>
+            <a class="login" href="ingreso.php">Inicia sesión o registrate</a>
+          <?php } ?>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- PRODUCTOS PRINCIPALES -->
+    <section class="productos-main" id="productos">
+      <div class="texto-filtros">
+        <div class="text-productos-main">
+          <h1 class="section-title">Muñecos colección</h1>
+          <p class="section-p">Explora todos nuestros muñecos de colección hechos con crochet a mano</p>
+        </div>
+        <?php
+        // Categoría activa para pintar el botón seleccionado.
+        // Por defecto: 'todos'
+        $activeCat = isset($_GET['cat']) && $_GET['cat'] !== '' ? $_GET['cat'] : 'todos';
+        ?>
+        <form class="filtros-productos">
+          <div class="label-filtros">
+            <label for="categoria">Filtra por categoría</label>
+          </div>
+          <div id="filtros-categorias" class="boton-filtros">
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'todos') ? 'activo' : ''; ?>" 
+               data-cat="todos" href="productos.php">Todos</a>
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'deportes') ? 'activo' : ''; ?>" 
+               data-cat="deportes" href="productos.php?cat=deportes">Deportes</a>
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'gaming') ? 'activo' : ''; ?>" 
+               data-cat="gaming" href="productos.php?cat=gaming">Gaming</a>
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'animales') ? 'activo' : ''; ?>" 
+               data-cat="animales" href="productos.php?cat=animales">Animales</a>
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'peliculas/series') ? 'activo' : ''; ?>" 
+               data-cat="peliculas/series" href="productos.php?cat=peliculas/series">Películas/Series</a>
+            <a class="opcion-categoria-productos <?php echo ($activeCat === 'musica') ? 'activo' : ''; ?>" 
+               data-cat="musica" href="productos.php?cat=musica">Música</a>
+          </div>
+        </form>
+      </div>
+      <!-- Usuario loggeado -->
+      <?php
+      if(isset($_SESSION["clientes"])) {
+      ?>
+        <div class="section-container-productos-main">
+
+          <div class="catalogo-productos" tabindex="0">
+            <?php 
+            include('componentes/conexion.php');
+            
+            // Consulta según categoría
+            if(isset($_GET['cat']) && $_GET['cat'] !== '') {
+              $categoria = $_GET['cat'];
+              $consultar_productos = mysqli_query($datosBD, "SELECT * FROM productos WHERE categoria = '$categoria'");
+            } else {
+              $consultar_productos = mysqli_query($datosBD, "SELECT * FROM productos ORDER BY categoria");
+            }
+
+            // Verificar si hay productos
+            $num_productos = mysqli_num_rows($consultar_productos);
+            
+            if($num_productos > 0) {
+              // Hay resultados: listamos las cards
+              while($listar_productos = mysqli_fetch_assoc($consultar_productos)){
+            ?>
+              <!-- 8 ítems: imagen cuadrada + título + precio + CTA -->
+              <article class="card-productos">
+                <div class="product-thumb">
+                  <img src="componentes/img_prod.php?id=<?php echo $listar_productos['id']; ?>" class="imagen-card-productos" alt="Imagen del producto">
+                </div>
+                <h3 class="product-title"><?php echo $listar_productos['nombre']; ?></h3>
+                <p class="category-product">Categoria: <?php echo $listar_productos['categoria']; ?></p>
+                <p class="product-price">Precio: $ <?php echo $listar_productos['precio']; ?></p>
+                <a href="#" class="btn-buy">Comprar</a>
+              </article>
+            <?php 
+              }
+            } else {
+              // No hay productos en esta categoría
+            ?>
+              <div class="no-productos">
+                <h2>No hay productos disponibles</h2>
+                <p>Por el momento no se encuentra ningún producto cargado en esta categoría. ¡Vuelve pronto para ver las novedades!</p>
+              </div>
+            <?php } ?>
+          </div>
+        </div>
+      <?php } else { ?>
+
+        <div class="section-sesion-cerrada">
+            <div class="sesion-cerrada">
+                <h2>Para ver el catálogo de productos es necesario ingresar como cliente</h2>
+                <a class="login" href="ingreso.php">Inicia sesión</a>
+            </div>
+        </div>
+
+      <?php } ?>
+      
+    </section>
+  </main>
+
+  <!-- ================== FOOTER ================== -->
+  <section class="site-footer" id="footer">
+    <div class="footer-container">
+
+      <!-- fila superior -->
+      <div class="footer-top">
+        <a class="footer-logo" href="./index.php" aria-label="Gaia Dolls">
+          <img src="img/logo-footer.png" alt="gaiadolls – muñecos de colección" />
+        </a>
+  
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="./index.php">Inicio</a>
+          <a href="./productos.php">Productos</a>
+          <a href="./sobrenosotros.php">Sobre nosotros</a>
+          <a href="./personaliza.php">Personalizar tu doll</a>
+        </nav>
+  
+        <div class="footer-social">
+          <span class="footer-social-label">Seguinos en</span>
+          <div class="redes">
+            <a class="social-ico" href="https://instagram.com" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a class="social-ico" href="https://tiktok.com" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <hr class="footer-divider"/>
+  
+      <!-- fila inferior -->
+      <div class="footer-bottom">
+        <div class="footer-contact">
+          <a href="mailto:contact@gaiadolls.com" class="footer-mail">
+            <i class="fa-regular fa-envelope"></i>
+            contact@gaiadolls.com
+          </a>
+          <a href="https://wa.me/5491133948693" class="footer-phone">
+            <i class="fa-solid fa-phone"></i>
+            +54 9 11 3394-8693
+          </a>
+        </div>
+  
+        <p class="footer-copy">
+          © 2024 Gaia Dolls. Todos los derechos de copyright reservados.
+        </p>
+      </div>
+  
+    </div>
+  </section>
+
+</body>
+</html>
