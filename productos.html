@@ -42,7 +42,7 @@
   <!-- HEADER -->
   <header class="site-header header-solid" id="siteHeader" data-force-solid="1">
     <div class="header-container">
-      <a class="logo" href="index.php" aria-label="Gaia Dolls">
+      <a class="logo" href="index.html" aria-label="Gaia Dolls">
         <img src="img/logo-gaia-dolls.png" alt="Gaia Dolls" />
       </a>
 
@@ -51,14 +51,14 @@
           <i class="fa-solid fa-bars"></i>
         </button>
         <ul class="menu" id="main-menu">
-          <li><a href="index.php" aria-current="page">Inicio</a></li>
-          <li><a href="productos.php" class="active" aria-current="page">Productos</a></li>
-          <li><a href="sobrenosotros.php">Sobre nosotras</a></li>
-          <li><a href="personaliza.php">Personalizar tu doll</a></li>
+          <li><a href="index.html" aria-current="page">Inicio</a></li>
+          <li><a href="productos.html" class="active" aria-current="page">Productos</a></li>
+          <li><a href="sobrenosotros.html">Sobre nosotras</a></li>
+          <li><a href="personaliza.html">Personalizar tu doll</a></li>
           <?php if(isset($_SESSION['clientes'])) { ?>
             <a href="componentes/salir.php">Cerrar sesión</a>
           <?php } else { ?>
-            <a class="login" href="ingreso.php">Inicia sesión o registrate</a>
+            <a class="login" href="ingreso.html">Inicia sesión o registrate</a>
           <?php } ?>
         </ul>
       </nav>
@@ -84,17 +84,17 @@
           </div>
           <div id="filtros-categorias" class="boton-filtros">
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'todos') ? 'activo' : ''; ?>" 
-               data-cat="todos" href="productos.php">Todos</a>
+               data-cat="todos" href="productos.html">Todos</a>
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'deportes') ? 'activo' : ''; ?>" 
-               data-cat="deportes" href="productos.php?cat=deportes">Deportes</a>
+               data-cat="deportes" href="productos.html?cat=deportes">Deportes</a>
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'gaming') ? 'activo' : ''; ?>" 
-               data-cat="gaming" href="productos.php?cat=gaming">Gaming</a>
+               data-cat="gaming" href="productos.html?cat=gaming">Gaming</a>
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'animales') ? 'activo' : ''; ?>" 
-               data-cat="animales" href="productos.php?cat=animales">Animales</a>
+               data-cat="animales" href="productos.html?cat=animales">Animales</a>
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'peliculas/series') ? 'activo' : ''; ?>" 
-               data-cat="peliculas/series" href="productos.php?cat=peliculas/series">Películas/Series</a>
+               data-cat="peliculas/series" href="productos.html?cat=peliculas/series">Películas/Series</a>
             <a class="opcion-categoria-productos <?php echo ($activeCat === 'musica') ? 'activo' : ''; ?>" 
-               data-cat="musica" href="productos.php?cat=musica">Música</a>
+               data-cat="musica" href="productos.html?cat=musica">Música</a>
           </div>
         </form>
       </div>
@@ -150,7 +150,7 @@
         <div class="section-sesion-cerrada">
             <div class="sesion-cerrada">
                 <h2>Para ver el catálogo de productos es necesario ingresar como cliente</h2>
-                <a class="login" href="ingreso.php">Inicia sesión</a>
+                <a class="login" href="ingreso.html">Inicia sesión</a>
             </div>
         </div>
 
@@ -165,15 +165,15 @@
 
       <!-- fila superior -->
       <div class="footer-top">
-        <a class="footer-logo" href="./index.php" aria-label="Gaia Dolls">
+        <a class="footer-logo" href="./index.html" aria-label="Gaia Dolls">
           <img src="img/logo-footer.png" alt="gaiadolls – muñecos de colección" />
         </a>
   
         <nav class="footer-nav" aria-label="Footer">
-          <a href="./index.php">Inicio</a>
-          <a href="./productos.php">Productos</a>
-          <a href="./sobrenosotros.php">Sobre nosotros</a>
-          <a href="./personaliza.php">Personalizar tu doll</a>
+          <a href="./index.html">Inicio</a>
+          <a href="./productos.html">Productos</a>
+          <a href="./sobrenosotros.html">Sobre nosotros</a>
+          <a href="./personaliza.html">Personalizar tu doll</a>
         </nav>
   
         <div class="footer-social">
